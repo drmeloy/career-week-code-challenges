@@ -1,5 +1,6 @@
 const dateAdder = require('../lib/utils/date-adder');
 const { transactions, transactionsAdder } = require('../lib/utils/transactions');
+const Set = require('../lib/utils/Set');
 
 describe('dateAdder function', () => {
   it('adds a specified "diff" to the provided date', () => {
@@ -64,5 +65,45 @@ describe('transactinons function', () => {
       'Tue Jul 02 2019': 11,
       'Tue Jul 16 2019': 9 
     });
+  });
+});
+
+describe('Set class', () => {
+  let mySet;
+  beforeEach(() => {
+    mySet = new Set();
+  });
+
+  it('has an array property', () => {
+    expect([...mySet]).toEqual([]);
+  });
+
+  it('can add to the array', () => {
+    mySet.add(4);
+    expect([...mySet]).toEqual[4];
+    mySet.add(5);
+    expect([...mySet]).toEqual([4, 5]);
+  });
+
+  it('cannot contain duplicates', () => {
+    mySet.add(4);
+    expect([...mySet]).toEqual([4]);
+    expect(mySet.add(4)).toEqual('Set already contains 4');
+  });
+
+  it('can remove from the array', () => {
+    mySet.add(4);
+    mySet.remove(4);
+    expect([...mySet]).toEqual([]);
+  });
+
+  it('cannot remove an item that is not in the array', () => {
+    expect(mySet.remove(4)).toEqual('Set does not contain 4');
+  });
+
+  it('will tell you if the array contains an item', () => {
+    mySet.add(4);
+    expect(mySet.has(4)).toEqual(true);
+    expect(mySet.has(5)).toEqual(false);
   });
 });
