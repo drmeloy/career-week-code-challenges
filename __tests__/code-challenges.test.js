@@ -70,31 +70,37 @@ describe('transactinons function', () => {
 
 describe('Set class', () => {
   let mySet;
+  let yourSet;
   beforeEach(() => {
     mySet = new Set();
+    yourSet = new Set();
+    mySet.add(1);
+    mySet.add(2);
+    mySet.add(3);
+    yourSet.add(2);
+    yourSet.add(3);
+    yourSet.add(4);
   });
 
   it('has an array property', () => {
-    expect([...mySet]).toEqual([]);
+    expect([...mySet]).toEqual([1, 2, 3]);
   });
 
   it('can add to the array', () => {
     mySet.add(4);
-    expect([...mySet]).toEqual[4];
+    expect([...mySet]).toEqual[1, 2, 3, 4];
     mySet.add(5);
-    expect([...mySet]).toEqual([4, 5]);
+    expect([...mySet]).toEqual([1, 2, 3, 4, 5]);
   });
 
   it('cannot contain duplicates', () => {
-    mySet.add(4);
-    expect([...mySet]).toEqual([4]);
-    expect(mySet.add(4)).toEqual('Set already contains 4');
+    expect(mySet.add(3)).toEqual('Set already contains 3');
   });
 
   it('can remove from the array', () => {
     mySet.add(4);
     mySet.remove(4);
-    expect([...mySet]).toEqual([]);
+    expect([...mySet]).toEqual([1, 2, 3]);
   });
 
   it('cannot remove an item that is not in the array', () => {
@@ -102,28 +108,15 @@ describe('Set class', () => {
   });
 
   it('will tell you if the array contains an item', () => {
-    mySet.add(4);
-    mySet.add(0);
-    mySet.add(9);
-    mySet.add(14);
-    expect(mySet.has(4)).toEqual(true);
-    expect(mySet.has(0)).toEqual(true);
-    expect(mySet.has(9)).toEqual(true);
-    expect(mySet.has(14)).toEqual(true);
+    expect(mySet.has(1)).toEqual(true);
+    expect(mySet.has(2)).toEqual(true);
+    expect(mySet.has(3)).toEqual(true);
+    expect(mySet.has(4)).toEqual(false);
     expect(mySet.has(5)).toEqual(false);
-    expect(mySet.has(44)).toEqual(false);
-    expect(mySet.has(109)).toEqual(false);
-    expect(mySet.has(8)).toEqual(false);
+    expect(mySet.has(6)).toEqual(false);
   });
 
   it('can return the intersection of another set', () => {
-    const yourSet = new Set();
-    mySet.add(1);
-    mySet.add(2);
-    mySet.add(3);
-    yourSet.add(2);
-    yourSet.add(3);
-    yourSet.add(4);
     const intersection = mySet.intersect(yourSet);
     expect([...mySet]).toEqual([1, 2, 3]);
     expect([...yourSet]).toEqual([2, 3, 4]);
@@ -131,13 +124,6 @@ describe('Set class', () => {
   });
 
   it('can return the difference of another set', () => {
-    const yourSet = new Set();
-    mySet.add(1);
-    mySet.add(2);
-    mySet.add(3);
-    yourSet.add(2);
-    yourSet.add(3);
-    yourSet.add(4);
     const difference = mySet.difference(yourSet);
     expect([...mySet]).toEqual([1, 2, 3]);
     expect([...yourSet]).toEqual([2, 3, 4]);
@@ -145,13 +131,6 @@ describe('Set class', () => {
   });
 
   it('can return the union of two sets', () => {
-    const yourSet = new Set();
-    mySet.add(1);
-    mySet.add(2);
-    mySet.add(3);
-    yourSet.add(2);
-    yourSet.add(3);
-    yourSet.add(4);
     const union = mySet.unite(yourSet);
     expect([...mySet]).toEqual([1, 2, 3]);
     expect([...yourSet]).toEqual([2, 3, 4]);
@@ -159,13 +138,6 @@ describe('Set class', () => {
   });
 
   it('can use a static method to get the intersection of two sets', () => {
-    const yourSet = new Set();
-    mySet.add(1);
-    mySet.add(2);
-    mySet.add(3);
-    yourSet.add(2);
-    yourSet.add(3);
-    yourSet.add(4);
     const intersection = Set.intersect(mySet, yourSet);
     expect([...mySet]).toEqual([1, 2, 3]);
     expect([...yourSet]).toEqual([2, 3, 4]);
@@ -173,13 +145,6 @@ describe('Set class', () => {
   });
 
   it('can use a static method to get the difference of two sets', () => {
-    const yourSet = new Set();
-    mySet.add(1);
-    mySet.add(2);
-    mySet.add(3);
-    yourSet.add(2);
-    yourSet.add(3);
-    yourSet.add(4);
     const intersection = Set.difference(mySet, yourSet);
     expect([...mySet]).toEqual([1, 2, 3]);
     expect([...yourSet]).toEqual([2, 3, 4]);
@@ -187,13 +152,6 @@ describe('Set class', () => {
   });
 
   it('can use a static method to get the union of two sets', () => {
-    const yourSet = new Set();
-    mySet.add(1);
-    mySet.add(2);
-    mySet.add(3);
-    yourSet.add(2);
-    yourSet.add(3);
-    yourSet.add(4);
     const intersection = Set.unite(mySet, yourSet);
     expect([...mySet]).toEqual([1, 2, 3]);
     expect([...yourSet]).toEqual([2, 3, 4]);
