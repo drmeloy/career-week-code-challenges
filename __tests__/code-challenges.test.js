@@ -157,4 +157,46 @@ describe('Set class', () => {
     expect([...yourSet]).toEqual([2, 3, 4]);
     expect([...union]).toEqual([1, 2, 3, 4]);
   });
+
+  it('can use a static method to get the intersection of two sets', () => {
+    const yourSet = new Set();
+    mySet.add(1);
+    mySet.add(2);
+    mySet.add(3);
+    yourSet.add(2);
+    yourSet.add(3);
+    yourSet.add(4);
+    const intersection = Set.intersect(mySet, yourSet);
+    expect([...mySet]).toEqual([1, 2, 3]);
+    expect([...yourSet]).toEqual([2, 3, 4]);
+    expect([...intersection]).toEqual([2, 3]);
+  });
+
+  it('can use a static method to get the difference of two sets', () => {
+    const yourSet = new Set();
+    mySet.add(1);
+    mySet.add(2);
+    mySet.add(3);
+    yourSet.add(2);
+    yourSet.add(3);
+    yourSet.add(4);
+    const intersection = Set.difference(mySet, yourSet);
+    expect([...mySet]).toEqual([1, 2, 3]);
+    expect([...yourSet]).toEqual([2, 3, 4]);
+    expect([...intersection]).toEqual([1, 4]);
+  });
+
+  it('can use a static method to get the union of two sets', () => {
+    const yourSet = new Set();
+    mySet.add(1);
+    mySet.add(2);
+    mySet.add(3);
+    yourSet.add(2);
+    yourSet.add(3);
+    yourSet.add(4);
+    const intersection = Set.unite(mySet, yourSet);
+    expect([...mySet]).toEqual([1, 2, 3]);
+    expect([...yourSet]).toEqual([2, 3, 4]);
+    expect([...intersection]).toEqual([1, 2, 3, 4]);
+  });
 });
