@@ -103,7 +103,58 @@ describe('Set class', () => {
 
   it('will tell you if the array contains an item', () => {
     mySet.add(4);
+    mySet.add(0);
+    mySet.add(9);
+    mySet.add(14);
     expect(mySet.has(4)).toEqual(true);
+    expect(mySet.has(0)).toEqual(true);
+    expect(mySet.has(9)).toEqual(true);
+    expect(mySet.has(14)).toEqual(true);
     expect(mySet.has(5)).toEqual(false);
+    expect(mySet.has(44)).toEqual(false);
+    expect(mySet.has(109)).toEqual(false);
+    expect(mySet.has(8)).toEqual(false);
+  });
+
+  it('can return the intersection of another set', () => {
+    const yourSet = new Set();
+    mySet.add(1);
+    mySet.add(2);
+    mySet.add(3);
+    yourSet.add(2);
+    yourSet.add(3);
+    yourSet.add(4);
+    const intersection = mySet.intersect(yourSet);
+    expect([...mySet]).toEqual([1, 2, 3]);
+    expect([...yourSet]).toEqual([2, 3, 4]);
+    expect([...intersection]).toEqual([2, 3]);
+  });
+
+  it('can return the difference of another set', () => {
+    const yourSet = new Set();
+    mySet.add(1);
+    mySet.add(2);
+    mySet.add(3);
+    yourSet.add(2);
+    yourSet.add(3);
+    yourSet.add(4);
+    const difference = mySet.difference(yourSet);
+    expect([...mySet]).toEqual([1, 2, 3]);
+    expect([...yourSet]).toEqual([2, 3, 4]);
+    expect([...difference]).toEqual([1, 4]);
+  });
+
+  it('can return the union of two sets', () => {
+    const yourSet = new Set();
+    mySet.add(1);
+    mySet.add(2);
+    mySet.add(3);
+    yourSet.add(2);
+    yourSet.add(3);
+    yourSet.add(4);
+    const union = mySet.unite(yourSet);
+    expect([...mySet]).toEqual([1, 2, 3]);
+    expect([...yourSet]).toEqual([2, 3, 4]);
+    expect([...union]).toEqual([1, 2, 3, 4]);
   });
 });
