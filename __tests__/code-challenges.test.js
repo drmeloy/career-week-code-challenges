@@ -1,5 +1,6 @@
 const dateAdder = require('../lib/utils/date-adder');
 const { transactions, transactionsAdder } = require('../lib/utils/transactions');
+const Set = require('../lib/utils/Set');
 
 describe('dateAdder function', () => {
   it('adds a specified "diff" to the provided date', () => {
@@ -64,5 +65,96 @@ describe('transactinons function', () => {
       'Tue Jul 02 2019': 11,
       'Tue Jul 16 2019': 9 
     });
+  });
+});
+
+describe('Set class', () => {
+  let mySet;
+  let yourSet;
+  beforeEach(() => {
+    mySet = new Set();
+    yourSet = new Set();
+    mySet.add(1);
+    mySet.add(2);
+    mySet.add(3);
+    yourSet.add(2);
+    yourSet.add(3);
+    yourSet.add(4);
+  });
+
+  it('has an array property', () => {
+    expect([...mySet]).toEqual([1, 2, 3]);
+  });
+
+  it('can add to the array', () => {
+    mySet.add(4);
+    expect([...mySet]).toEqual[1, 2, 3, 4];
+    mySet.add(5);
+    expect([...mySet]).toEqual([1, 2, 3, 4, 5]);
+  });
+
+  it('cannot contain duplicates', () => {
+    expect(mySet.add(3)).toEqual('Set already contains 3');
+  });
+
+  it('can remove from the array', () => {
+    mySet.add(4);
+    mySet.remove(4);
+    expect([...mySet]).toEqual([1, 2, 3]);
+  });
+
+  it('cannot remove an item that is not in the array', () => {
+    expect(mySet.remove(4)).toEqual('Set does not contain 4');
+  });
+
+  it('will tell you if the array contains an item', () => {
+    expect(mySet.has(1)).toEqual(true);
+    expect(mySet.has(2)).toEqual(true);
+    expect(mySet.has(3)).toEqual(true);
+    expect(mySet.has(4)).toEqual(false);
+    expect(mySet.has(5)).toEqual(false);
+    expect(mySet.has(6)).toEqual(false);
+  });
+
+  it('can return the intersection of another set', () => {
+    const intersection = mySet.intersect(yourSet);
+    expect([...mySet]).toEqual([1, 2, 3]);
+    expect([...yourSet]).toEqual([2, 3, 4]);
+    expect([...intersection]).toEqual([2, 3]);
+  });
+
+  it('can return the difference of another set', () => {
+    const difference = mySet.difference(yourSet);
+    expect([...mySet]).toEqual([1, 2, 3]);
+    expect([...yourSet]).toEqual([2, 3, 4]);
+    expect([...difference]).toEqual([1, 4]);
+  });
+
+  it('can return the union of two sets', () => {
+    const union = mySet.unite(yourSet);
+    expect([...mySet]).toEqual([1, 2, 3]);
+    expect([...yourSet]).toEqual([2, 3, 4]);
+    expect([...union]).toEqual([1, 2, 3, 4]);
+  });
+
+  it('can use a static method to get the intersection of two sets', () => {
+    const intersection = Set.intersect(mySet, yourSet);
+    expect([...mySet]).toEqual([1, 2, 3]);
+    expect([...yourSet]).toEqual([2, 3, 4]);
+    expect([...intersection]).toEqual([2, 3]);
+  });
+
+  it('can use a static method to get the difference of two sets', () => {
+    const intersection = Set.difference(mySet, yourSet);
+    expect([...mySet]).toEqual([1, 2, 3]);
+    expect([...yourSet]).toEqual([2, 3, 4]);
+    expect([...intersection]).toEqual([1, 4]);
+  });
+
+  it('can use a static method to get the union of two sets', () => {
+    const intersection = Set.unite(mySet, yourSet);
+    expect([...mySet]).toEqual([1, 2, 3]);
+    expect([...yourSet]).toEqual([2, 3, 4]);
+    expect([...intersection]).toEqual([1, 2, 3, 4]);
   });
 });
